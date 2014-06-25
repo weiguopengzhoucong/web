@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="my_course">
+	<!-- 添加用户 -->
+	<insert id="insertCourse" parameterType="com.pxjg.module.course.entity.Course" >
+   		insert into
+		Tbl_department_course(
+		id,
+		deptid,
+		cname,
+		content,
+		url,
+		happentime,
+		type,
+		num,
+		money,
+		sage,
+		zhouqi,
+		c1,
+		c2,
+		c3,
+		skey,
+		seq,
+		state
+		)values(
+		#{id,jdbcType=VARCHAR},
+		#{deptid,jdbcType=VARCHAR},
+		#{cname,jdbcType=VARCHAR},
+		#{content,jdbcType=VARCHAR},
+		#{url,jdbcType=VARCHAR},
+		sysdate,
+		#{type,jdbcType=VARCHAR},
+		#{num,jdbcType=INTEGER},
+		#{money,jdbcType=VARCHAR},
+		#{sage,jdbcType=VARCHAR},
+		#{zhouqi,jdbcType=VARCHAR},
+		#{c1,jdbcType=VARCHAR},
+		#{c2,jdbcType=VARCHAR},
+		#{c3,jdbcType=VARCHAR},
+		#{skey,jdbcType=INTEGER},
+		#{seq,jdbcType=VARCHAR},
+		#{state,jdbcType=INTEGER}
+		
+		)
+	</insert>
+	
+	<select id="queryCourseByDeptid" resultType="com.pxjg.module.course.entity.Course"
+		parameterType="map">
+		select * from Tbl_department_course where deptid = '${deptid}' ${search}
+	</select>
+	
+	<update id="updateCourse" parameterType="com.pxjg.module.course.entity.Course">
+	    
+	    update
+		Tbl_department_course 
+		set 
+		deptid =#{deptid,jdbcType=VARCHAR},
+		cname = #{cname,jdbcType=VARCHAR},
+		Content =#{content,jdbcType=VARCHAR},
+		url =#{url,jdbcType=VARCHAR},
+		Type = #{type,jdbcType=VARCHAR},
+		Num = #{num,jdbcType=INTEGER},
+		Money = #{money,jdbcType=VARCHAR},
+		Sage = #{sage,jdbcType=VARCHAR},
+		Zhouqi = #{zhouqi,jdbcType=VARCHAR},
+		C1 = #{c1,jdbcType=VARCHAR},
+		C2 = #{c2,jdbcType=VARCHAR},
+		C3 = #{c3,jdbcType=VARCHAR},
+		Skey = #{skey,jdbcType=INTEGER},
+		state = #{state,jdbcType=INTEGER},
+		Seq = #{seq,jdbcType=VARCHAR}
+		where 
+		Id=#{id,jdbcType=VARCHAR}
+			
+	</update>
+	
+	<delete id="deleteCourse" parameterType="String">
+		update Tbl_department_course set state=0 where id=#{id}
+	</delete>
+	
+	<select id="queryCountByDeptid" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(*) from Tbl_department_course where deptid = '${deptid}' ${search}
+	</select>
+	
+	<select id="queryCourseByid" resultType="com.pxjg.module.course.entity.Course"
+		parameterType="String">
+		select * from Tbl_department_course where id =#{id}
+	</select>
+	
+	<select id="queryCourseByGroup" resultType="java.lang.String"
+	parameterType="String">
+	select c.type from Tbl_department_course c,tbl_department t where c.deptid = t.id  and  t.state=0  and t.cityid = #{deptid} group by type
+	</select>
+	
+	<select id="queryCourseByType" resultType="com.pxjg.module.course.entity.Course"
+		parameterType="map">
+		select c.* from Tbl_department_course c,tbl_department t where c.deptid = t.id  and  t.state=0  and t.cityid = #{deptid} and c.type = '${type}' order by seq asc
+	</select>
+	
+</mapper>

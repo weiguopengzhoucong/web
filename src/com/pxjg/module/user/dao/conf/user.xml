@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="my_users">
+
+	<!-- 人员信息表 -->
+	<resultMap id="userResult" type="com.pxjg.module.user.entity.User">
+		<result property="user_name" column="user_name" jdbcType="VARCHAR" />
+		<result property="password" column="password" jdbcType="VARCHAR" />
+		<result property="user_id" column="user_id" jdbcType="VARCHAR" />
+		<result property="real_name" column="real_name" jdbcType="VARCHAR" />
+		<result property="telephone" column="telephone" jdbcType="VARCHAR" />
+		<result property="mobile" column="mobile" jdbcType="VARCHAR" />
+		<result property="role" column="role" jdbcType="VARCHAR" />
+		<result property="status" column="status" jdbcType="VARCHAR" />
+		<result property="mail" column="mail" jdbcType="VARCHAR" />
+		<result property="sex" column="sex" jdbcType="VARCHAR" />
+		<result property="qq" column="qq" jdbcType="VARCHAR" />
+		<result property="hobby" column="hobby" jdbcType="VARCHAR" />
+		<result property="purpose" column="purpose" jdbcType="VARCHAR" />
+		<result property="cityid" column="cityid" jdbcType="VARCHAR" />
+		<result property="deptid" column="deptid" jdbcType="VARCHAR" />
+		<result property="remark1" column="remark1" jdbcType="VARCHAR" />
+		<result property="remark2" column="remark2" jdbcType="VARCHAR" />
+		<result property="remark3" column="remark3" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 查询总数 -->
+	<select id="userList" resultType="com.pxjg.module.user.entity.User" parameterType="map">
+  
+   		select * from tbl_users where user_name != 'admin' ${param}
+   	
+	</select>
+	<select id="login" resultType="com.pxjg.module.user.entity.User" parameterType="com.pxjg.module.user.entity.User">
+  
+   		select * from tbl_users where user_name=#{user_name} and password = #{password}  and status!=1
+   	
+	</select>
+	
+	<select id="frontLogin" resultType="com.pxjg.module.user.entity.User" parameterType="com.pxjg.module.user.entity.User">
+  
+   		select * from tbl_users where user_name=#{user_name} and password = #{password} 
+   	
+	</select>
+	
+	<select id="queryUserByParam" resultType="com.pxjg.module.user.entity.User"
+		parameterType="map" >
+	<![CDATA[
+    select * from tbl_users where rowid in(select rid from (select rownum rn,rid from(select rowid rid from  
+		tbl_users where user_name!='admin' ${param} order by user_name desc) where rownum<=${endCount}) where rn>=${startCount}) order by user_name desc
+    ]]>
+	</select>
+	
+	<select id="queryByUsername" resultType="com.pxjg.module.user.entity.User" parameterType="String">
+  
+   		select * from tbl_users where user_name=#{user_name} 
+   	
+	</select>
+	<!-- 添加用户 -->
+	<insert id="insertUsers" parameterType="com.pxjg.module.user.entity.User" >
+   		insert into TBL_USERS(user_id,password,real_name,user_name,sex,mail,
+   		mobile,telephone,birthday,qq,hobby,purpose,cityid,deptid,role,
+   		status,remark1,remark2,remark3) 
+   		values(
+   		#{user_id,jdbcType=VARCHAR},
+   		#{password,jdbcType=VARCHAR},
+   		#{real_name,jdbcType=VARCHAR},
+   		#{user_name,jdbcType=VARCHAR},
+   		#{sex,jdbcType=VARCHAR},
+   		#{mail,jdbcType=VARCHAR},
+   		#{mobile,jdbcType=VARCHAR},
+   		#{telephone,jdbcType=VARCHAR},
+   		#{birthday,jdbcType=VARCHAR},
+   		#{qq,jdbcType=VARCHAR},
+   		#{hobby,jdbcType=VARCHAR},
+   		#{purpose,jdbcType=VARCHAR},
+   		#{cityid,jdbcType=VARCHAR},
+   		#{deptid,jdbcType=VARCHAR},
+   		#{role,jdbcType=VARCHAR},
+   		#{status,jdbcType=VARCHAR},
+   		#{remark1,jdbcType=VARCHAR},
+   		#{remark2,jdbcType=VARCHAR},
+   		#{remark3,jdbcType=VARCHAR}
+   		)
+	</insert>
+	
+	<select id="queryUsersByid" resultType="com.pxjg.module.user.entity.User"
+		parameterType="String">
+		select * from tbl_users where user_id = #{user_id}
+	</select>
+	
+	<select id="queryUsersByDeptId" resultType="com.pxjg.module.user.entity.User"
+		parameterType="String">
+		select * from tbl_users where deptid = #{deptid}
+	</select>
+	
+	<update id="updatePassword" parameterType="com.pxjg.module.user.entity.User">
+			update tbl_users set password = #{password} where user_id = #{user_id}
+	</update>
+	
+	<delete id="deleteUsers" parameterType="String">
+		delete tbl_users where user_id=#{id}
+	</delete>
+	
+	<update id="updateUserState" parameterType="map">
+		update tbl_users set status= ${state}
+	    where user_id = '${user_id}'
+	</update>
+	
+	<select id="queryCountByParam" resultType="int"
+		parameterType="map">
+		select count(user_id) from tbl_users where user_name !='admin' ${param}
+	</select>
+	
+	<update id="updateFrontUser" parameterType="com.pxjg.module.user.entity.User">
+		update tbl_users 
+		set FIGURE = #{figure,jdbcType=VARCHAR},
+		MARRIAGE = #{marriage,jdbcType=VARCHAR},
+		BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+		XINGZUO = #{xingzuo,jdbcType=VARCHAR},
+		QQ = #{qq,jdbcType=VARCHAR},
+		QQ_OPEN = #{qq_open,jdbcType=VARCHAR},
+		MSN = #{msn,jdbcType=VARCHAR},
+		MSN_OPEN = #{msn_open,jdbcType=VARCHAR},
+		JOB = #{job,jdbcType=VARCHAR},
+		HIGHSCHOOL = #{highschool,jdbcType=VARCHAR},
+		UNIVERSITY = #{university,jdbcType=VARCHAR},
+		DOMAIN_NAME = #{domain_name,jdbcType=VARCHAR},
+		HOME_PAGE = #{home_page,jdbcType=VARCHAR},
+		HOBBY = #{hobby,jdbcType=VARCHAR}
+		where user_id = #{user_id,jdbcType=VARCHAR}
+	</update>
+</mapper>

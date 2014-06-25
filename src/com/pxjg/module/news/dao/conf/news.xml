@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="my_news">
+
+	<!-- 人员信息表 -->
+	<resultMap id="newsResult" type="com.pxjg.module.news.entity.News">
+		<result property="Id" column="Id" jdbcType="VARCHAR" />
+		<result property="Deptid" column="Deptid" jdbcType="VARCHAR" />
+		<result property="Title" column="Title" jdbcType="VARCHAR" />
+		<result property="Title2" column="Title2" jdbcType="VARCHAR" />
+		<result property="Content" column="Content" jdbcType="CLOB" />
+		<result property="Num" column="Num" jdbcType="INTEGER" />
+		<result property="Ftime" column="Ftime" jdbcType="DATE" />
+		<result property="IsHF" column="IsHF" jdbcType="INTEGER" />
+		<result property="State" column="State" jdbcType="INTEGER" />
+		<result property="Userid" column="Userid" jdbcType="VARCHAR" />
+		<result property="Type" column="Type" jdbcType="VARCHAR" />
+		<result property="url" column="url" jdbcType="VARCHAR" />
+		<result property="Seq" column="Seq" jdbcType="INTEGER" />
+		<result property="Top" column="Top" jdbcType="INTEGER" />
+		<result property="C1" column="C1" jdbcType="VARCHAR" />
+		<result property="C2" column="C2" jdbcType="VARCHAR" />
+		<result property="C3" column="C3" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 添加用户 -->
+	<insert id="insertNews" parameterType="com.pxjg.module.news.entity.News" >
+   		insert into
+		tbl_department_news(
+		Id,
+		Deptid,
+		Title,
+		Title2,
+		Content,
+		Num,
+		Ftime,
+		IsHF,
+		State,
+		C1,
+		C2,
+		C3,
+		Userid,
+		Type,
+		url,
+		Seq,
+		Top
+		)values(
+		#{Id,jdbcType=VARCHAR},
+		#{Deptid,jdbcType=VARCHAR},
+		#{Title,jdbcType=VARCHAR},
+		#{Title2,jdbcType=VARCHAR},
+		#{Content,jdbcType=VARCHAR},
+		#{Num,jdbcType=VARCHAR},
+		sysdate,
+		#{IsHF,jdbcType=INTEGER},
+		#{State,jdbcType=INTEGER},
+		#{C1,jdbcType=VARCHAR},
+		#{C2,jdbcType=VARCHAR},
+		#{C3,jdbcType=VARCHAR},
+		#{Userid,jdbcType=VARCHAR},
+		#{Type,jdbcType=VARCHAR},
+		#{url,jdbcType=VARCHAR},
+		#{Seq,jdbcType=INTEGER},
+		#{Top,jdbcType=INTEGER}
+		
+		)
+	</insert>
+	
+	<select id="queryNewsByid" resultType="com.pxjg.module.news.entity.News"
+		parameterType="String">
+		select * from tbl_department_news where id = #{id}
+	</select>
+	
+	<update id="updateNews" parameterType="com.pxjg.module.news.entity.News">
+	    
+	    update
+		tbl_department_news 
+		set 
+		Deptid=#{Deptid,jdbcType=VARCHAR},
+		Title=#{Title,jdbcType=VARCHAR},
+		Title2=#{Title2,jdbcType=VARCHAR},
+		Content=#{Content,jdbcType=VARCHAR},
+		Num=#{Num,jdbcType=INTEGER},
+		IsHF=#{IsHF,jdbcType=INTEGER},
+		State=#{State,jdbcType=INTEGER},
+		C1=#{C1,jdbcType=VARCHAR},
+		C2=#{C2,jdbcType=VARCHAR},
+		C3=#{C3,jdbcType=VARCHAR},
+		Userid=#{Userid,jdbcType=VARCHAR},
+		Type=#{Type,jdbcType=VARCHAR},
+		url=#{url,jdbcType=VARCHAR},
+		Seq=#{Seq,jdbcType=INTEGER},
+		Top=#{Top,jdbcType=INTEGER}
+		where 
+		Id=#{Id,jdbcType=VARCHAR}
+			
+	</update>
+	
+	<delete id="deleteNews" parameterType="String">
+		update tbl_department_news set state=2 where id=#{id}
+	</delete>
+	
+	
+	<select id="queryNewsByDeptId" resultType="com.pxjg.module.news.entity.News"
+		parameterType="map">
+		
+		<![CDATA[
+		select * from tbl_department_news where rowid in(select rid from (select rownum rn,rid from(select s.rowid rid from  
+		tbl_department_news s
+		 where s.state!=2 and s.type='${type}'  and s.deptid='${deptid}' ${search} order by s.Ftime desc ) where rownum<=${endCount}) where rn>=${startCount})  order by Ftime desc
+		]]>
+		
+		
+	</select>
+	
+	<select id="queryNewsByAdmin" resultType="com.pxjg.module.news.entity.News"
+		parameterType="map">
+		
+		<![CDATA[
+		select * from tbl_department_news where rowid in(select rid from (select rownum rn,rid from(select s.rowid rid from  
+		tbl_department_news s
+		 where s.state!=2 and s.type='${type}'  ${search} order by s.Ftime desc ) where rownum<=${endCount}) where rn>=${startCount})  order by Ftime desc
+		]]>
+		
+		
+	</select>
+	
+	<select id="queryNews" resultType="com.pxjg.module.news.entity.News"
+		parameterType="map">
+		
+		<![CDATA[
+		select * from tbl_department_news where rowid in(select rid from (select rownum rn,rid from(select s.rowid rid from  
+		tbl_department_news s
+		 where s.state!=2 and  s.type='${type}' ${search}  order by s.Ftime desc ) where rownum<=${endCount}) where rn>=${startCount})  order by Ftime desc
+		]]>
+		
+		
+	</select>
+	
+	
+	<select id="queryNewsCount" resultType="java.lang.Integer"
+		parameterType="map">
+		
+		<![CDATA[
+			select count(*) from tbl_department_news where state!=2 and ${sql} 
+		]]>
+		
+		
+	</select>
+	<select id="queryCountByDeptid" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(*) from tbl_department_news where state!=2 and deptid = '${deptid}' and type='${type}' ${search}
+	</select>
+	
+	<select id="queryCount" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(*) from tbl_department_news where state!=2 and type='${type}' ${search}
+	</select>
+
+
+	<update id="openOrClose" parameterType="Map">
+		update tbl_department_news set 
+		state = ${state} 
+		where id = '${id}'
+	</update>
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version="1.0">
+
+	<!-- methodName1 -->
+	<entry key="methodName1_var1">value1</entry>
+	<entry key="methodName1_var2">10</entry>
+
+	<!-- methodName2 -->
+	<entry key="methodName2_var1">value1</entry>
+	<entry key="methodName2_var2">value2</entry>
+
+</properties> 

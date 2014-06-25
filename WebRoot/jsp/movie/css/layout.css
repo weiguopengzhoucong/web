@@ -1,0 +1,252 @@
+@charset "utf-8";
+/* 
+	@名称: layout
+	@作者： 吕彬  
+	@Q Q: 286504720
+	@日期: 2013.7.17
+*/
+
+#layout{
+	background:url(../images/bg.jpg) repeat-x;
+	padding:0 70px;
+}
+#header{
+	height:45px;
+}
+#sidebar{
+	float:left;
+	width:220px;
+	overflow:hidden;
+}
+#sidebar .menu dt{
+	background:url(../images/menu-dt.jpg) no-repeat;
+	height:40px;
+	font:18px/40px "微软雅黑";
+	color:#fff;
+	text-align:center;
+	margin-bottom:10px;
+}
+#sidebar .menu dd{
+	background:url(../images/menu-dd.jpg) no-repeat;
+	text-align:center;
+	margin-bottom:5px;
+}
+#sidebar .menu dd a{
+	font:16px/35px "宋体";
+	color:#666;
+}
+#sidebar .menu dd a.active,#sidebar .menu dd a:hover{
+	color:#ff8400;
+}
+
+#main{
+	float:left;
+	padding:0 20px;
+	width:960px;
+	overflow:hidden;
+}
+#main h2{
+	height:40px;
+	font:18px/40px "微软雅黑";
+	color:#ff6000;
+	text-indent:2em;
+}
+#main h3{
+	height:40px;
+	font:16px/35px "宋体";
+	color:#666;
+	text-indent:2em;
+}
+#main h3 span{
+	color:#ff6000;
+}
+#main .table{
+	clear:both;
+}
+#main .table table{
+	width:637px;
+	border-left:1px solid #dbdbdb;
+	margin-bottom:8px;
+}
+#main .table table th{
+	background:url(../images/table-th.jpg) repeat-x;
+	text-align:center;
+	font:12px/30px "宋体";
+	color:#ff7800;
+	border-right:1px solid #dbdbdb;
+}
+#main .table table tr.bg{
+	background:#f8f5e4;
+}
+#main .table table td{
+	text-align:center;
+	font:12px/28px "宋体";
+	color:#737373;
+	border-right:1px solid #dbdbdb;
+	border-bottom:1px solid #dbdbdb;
+	overflow:hidden;
+}
+#main .table table td a{
+	color:#ffa800;
+	display:inline-block;
+}
+#main .table table td a.write_btn{
+	background:url(../images/write.jpg) no-repeat;
+	width:19px;
+	height:21px;
+}
+#main .table table td a.write_btn_2{
+	background:url(../images/write-2.jpg) no-repeat;
+	width:19px;
+	height:21px;
+}
+#main .table table td a.del_btn{
+	background:url(../images/del.jpg) no-repeat;
+	width:19px;
+	height:21px;
+}
+#main .table table td .sort{
+	border:0 none;
+	width:30px;
+	text-align:center;
+	background:none;
+}
+#main .table table td a.del_btn_2{
+	background:url(../images/del-2.jpg) no-repeat;
+	width:19px;
+	height:21px;
+}
+#main .table .pages_left{
+	background:url(../images/pages-left.jpg) no-repeat;
+	width:293px;
+	height:30px;
+	float:left;
+	margin-right:1px;
+}
+#main .table .pages div{
+	float:left;
+	height:30px;
+	margin-bottom:15px;
+}
+#main .table div.pages_num{
+	background:url(../images/nums.jpg) no-repeat;
+	color:#444;
+	font:12px/30px "宋体";
+	width:30px;
+	text-align:center;
+	margin:0 1px;
+}
+#main .table .pages_right{
+	background:url(../images/pages-right.jpg) no-repeat;
+	width:250px;
+	height:30px;
+	float:left;
+	margin-left:1px;
+	text-align:center;
+}
+#main .table .pages_right a{
+	font:12px/28px  "宋体";
+	color:#ff7800;
+}
+#main .column{
+	clear:both;
+	background:#f4f2f0 url(../images/main-bg.jpg) repeat-x;
+	padding:15px 0 25px;
+}
+#main .column label{
+	display:block;
+	clear:both;
+	padding:5px 0;
+}
+#main .column label .col_text{
+	width:112px;
+	display:block;
+	float:left;
+	text-align:right;
+	height:28px;
+	font:16px/28px "宋体";
+	color:#333;
+}
+#main .column label .label_text_370{
+	width:368px;
+	height:26px;
+	border:1px solid #e0dedc;
+}
+#main .column label em{
+	text-indent:2em;
+	font:12px/28px "宋体";
+	color:#999;
+	display:inline-block;
+}
+#main .column label .select{
+	background:url(../images/select.jpg) no-repeat;
+	height:30px;
+	width:124px;
+	position:relative;
+	z-index:9;
+}
+#main .column label .select em{
+	float:right;
+	width:24px;
+	height:30px;
+	cursor:pointer;
+}
+#main .column label .select ul.sel{
+	height:25px;
+	overflow:hidden;
+}
+#main .column label .select ul.sel li{
+	padding-left:5px;
+	line-height:25px;
+}
+#main .column label .select .list{
+	background:#fff;
+	border:1px solid #ddd;
+	padding:5px;
+	display:none;
+}
+#main .column label .select .list li{
+	height:28px;
+	margin:3px 0;
+	padding:0 5px;
+	background:#eee;
+	cursor:pointer;
+	line-height:28px;
+}
+#main .column label .label_textarea{
+	width:368px;
+	height:88px;
+	border:1px solid #e0dedc;
+}
+#main .column label .upload_img_btn{
+	background: url(../images/upload_img_btn.jpg) no-repeat;
+	width:106px;
+	height:31px;
+	border:0 none;
+	text-align:center;
+	font:14px/28px "宋体";
+	color:#999;
+}
+#main .column label .sure_btn{
+	background:url(../images/sure-btn.jpg) no-repeat;
+	width:102px;
+	height:32px;
+	border:0 none;
+	text-indent:-999em;
+	margin-right:20px;
+}
+#main .column label .return_btn{
+	background:url(../images/return-btn.jpg) no-repeat;
+	width:102px;
+	height:32px;
+	border:0 none;
+	text-indent:-999em;
+}
+#main .column label .img{
+	background:url(../images/label-img.jpg) no-repeat;
+	width:91px;
+	height:70px;
+	margin-left:112px;
+	margin-top:10px;
+}
+

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>MyHtml.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	<object classid="clsid:4CFBD1C3-7492-4F9D-92BF-4001D006387E" id="CCLink" width="0" height="0"></object>
+	
+	<script type="text/javascript">
+		var LinkHost = '192.168.1.100';
+        var LinkPort=2008;
+        var LinkWorkNo = '1001';//工号
+        var LinkExtName = '张明';
+        var LinkExtCode="";//分机号
+        
+        function Link_ConnectServer() {
+            if(CCLink.Link_ReadClientCookie("本机分机号")=="")
+        	{
+        		alert("请绑定分机号");
+        		CCLink.Link_WriteClientCookie("本机分机号", "802");
+        		//LinkExtCode = "802";
+        	}
+        	else
+        	{
+	        	LinkExtCode = CCLink.Link_ReadClientCookie("本机分机号");
+        	}
+        	alert(LinkExtCode);
+            if (LinkExtCode!="")
+            {
+                var Err = CCLink.Link_ConnectServer(LinkHost, LinkPort, 1); //建立客户端和服务器端连接
+                if (Err != "") {
+                    alert("连接呼叫中心服务器失败!");
+                    //parent.window.location.href = "login.aspx";
+                    return false;
+                }
+                Err = CCLink.Ext_Assign(LinkExtCode, LinkExtCode); //绑定到分机设备
+                if (Err != "") {
+                    alert(Err);
+                    //parent.window.location.href = "login.aspx";
+                    return false;
+                }
+                CCLink.Ext_CheckInQueue(LinkExtCode);
+                CCLink.Ext_SetExtName(LinkExtCode, LinkExtName);
+                if (LinkWorkNo!="") {
+ 		    		CCLink.Ext_SetExtWorkNo(LinkExtCode, LinkWorkNo);
+                }
+            }
+            //getCurrentState();
+            return true;
+        }
+        window.onload = function () {
+            Link_ConnectServer();
+            alert(CCLink.Ext_GetCallState(LinkExtCode));
+        }
+        
+        //保持
+        function keeping(linkCode)
+        {
+        	CCLink.Ext_TransferCall(linkCode,"","","");
+        	alert(CCLink.Ext_GetCallState(linkCode));
+        }
+        
+        //收回
+        function callIn(linkCode)
+        {
+        	CCLink.Ext_CancelTransfer(linkCode);
+        	alert(CCLink.Ext_GetCallState(linkCode));
+        }
+        
+        //置忙
+        function busied(linkCode)
+        {
+        	CCLink.Ext_SetExtDoNotDisturb(linkCode,"1");
+        	alert(CCLink.Ext_GetExtDoNotDisturb(linkCode));
+        }
+        
+        //置闲
+        function setIdle(linkCode)
+        {
+        	CCLink.Ext_SetExtDoNotDisturb(linkCode,"0");
+        	alert(CCLink.Ext_GetExtDoNotDisturb(linkCode));
+        }
+        
+        //呼叫转移
+        function callTransfer()
+        {
+        	CCLink.Ext_TransferCall("802","803","","");
+        }
+	</script>
+ 	<script type="text/javascript" FOR="CCLink" Event="LinkEvent_OnDisconnected()">//与呼叫中心断开
+        alert("与呼叫中心服务器断开!");
+        //parent.window.location.href="login.aspx";
+    </script>
+    <script type="text/javascript" FOR="CCLink" Event="ExtEvent_OnDoNotDisturbChange(ExtCode,DoNotDisturb)">//分机免打扰标志改变事件
+        //处理按钮变灰
+    </script>
+    <script type="text/javascript" language="JavaScript" for="CCLink" event="ExtEvent_OnCallIn(ExtCode,OtherCode,OtherRole,TransferCode,TransferRole,CallData)">//分机呼入事件
+        alert(OtherCode+"有电话了");
+    </script>
+    <script type="text/javascript" language="JavaScript" for="CCLink" event="ExtEvent_OnCallStateChange(ExtCode,CallState)">//分机呼叫状态改变事件
+        //处理按钮变灰
+    </script>
+    
+    <!-- 录音文件名 -->
+    <script type="text/javascript" language="JavaScript" for="CCLink" event="ExtEvent_OnConnected (ExtCode,OtherCode,OtherRole,TransferCode,TransferRole,CallData)">//分机通话事件
+        alert(CCLink.Ext_GetCallInfo_RecordFile(ExtCode)+"语音文件");
+    </script>
+  </head>
+  
+  <body>
+    This is my HTML page. <br>
+    <input type="button" onclick="javascript:keeping(LinkExtCode)" value="保持">
+    <input type="button" onclick="javascript:callIn(LinkExtCode)" value="收回">
+    <input type="button" onclick="javascript:busied(LinkExtCode)" value="置忙">
+    <input type="button" onclick="javascript:setIdle(LinkExtCode)" value="置闲">
+    <input type="button" onclick="javascript:callTransfer()" value="呼叫转移">
+  </body>
+</html>

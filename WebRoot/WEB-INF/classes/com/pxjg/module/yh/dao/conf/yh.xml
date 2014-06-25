@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="my_yh">
+
+	<select id="queryYhByParam" resultType="com.pxjg.module.yh.entity.Yh"
+		parameterType="map" >
+	<![CDATA[
+    select * from tbl_yh where rowid in(select rid from (select rownum rn,rid from(select rowid rid from  
+		tbl_yh where delflag!=1 ${param} ) where rownum<=${endCount}) where rn>=${startCount}) 
+    ]]>
+	</select>
+	
+	<!-- 添加优惠 -->
+	<insert id="insertYh" parameterType="com.pxjg.module.yh.entity.Yh" >
+   		insert into tbl_yh(id,name,content,startdate,enddate,type,
+   		state,deptorcourse,deptorcourseid,delflag,remark1,remark2,remark3) 
+   		values(
+   		#{id,jdbcType=VARCHAR},
+   		#{name,jdbcType=VARCHAR},
+   		#{content,jdbcType=VARCHAR},
+   		#{startdate,jdbcType=VARCHAR},
+   		#{enddate,jdbcType=VARCHAR},
+   		#{type,jdbcType=VARCHAR},
+   		#{state,jdbcType=VARCHAR},
+   		#{deptorcourse,jdbcType=VARCHAR},
+   		#{deptorcourseid,jdbcType=VARCHAR},
+   		#{delflag,jdbcType=VARCHAR},
+   		#{remark1,jdbcType=VARCHAR},
+   		#{remark2,jdbcType=VARCHAR},
+   		#{remark3,jdbcType=VARCHAR}
+   		)
+	</insert>
+	
+	<select id="queryYhById" resultType="com.pxjg.module.yh.entity.Yh"
+		parameterType="String">
+		select * from tbl_yh where id = #{id}
+	</select>
+	
+	<update id="deleteYh" parameterType="String">
+		update tbl_yh set delflag = 1 where id = #{id}
+	</update>
+	
+	<update id="openOrClose" parameterType="Map">
+		update tbl_yh set 
+		state = ${state} 
+		where id = '${id}'
+	</update>
+	
+	<update id="updateYh" parameterType="com.pxjg.module.yh.entity.Yh">
+		update tbl_yh set 
+		name = #{name,jdbcType=VARCHAR},
+		content = #{content,jdbcType=VARCHAR},
+		startdate = #{startdate,jdbcType=VARCHAR},
+		enddate = #{enddate,jdbcType=VARCHAR},
+		type = #{type,jdbcType=VARCHAR},
+		remark1 = #{remark1,jdbcType=VARCHAR},
+		remark2 = #{remark2,jdbcType=VARCHAR},
+		remark3 = #{remark3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+	
+	<select id="queryCountByParam" resultType="int"
+		parameterType="map">
+		select count(id) from tbl_yh where delflag !=1 ${param}
+	</select>
+</mapper>

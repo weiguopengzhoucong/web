@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="my_dept">
+    
+    	<resultMap id="deptResult" type="com.pxjg.module.department.entity.Department">
+		<result property="id" column="id" jdbcType="VARCHAR" />
+		<result property="deptname" column="deptname" jdbcType="VARCHAR" />
+		<result property="depttype" column="depttype" jdbcType="VARCHAR" />
+		<result property="cityid" column="cityid" jdbcType="VARCHAR" />
+		<result property="description" column="description" jdbcType="CLOB" />
+		<result property="address" column="address" jdbcType="VARCHAR" />
+		<result property="tel" column="tel" jdbcType="VARCHAR" />
+		<result property="content" column="content" jdbcType="VARCHAR" />
+		<result property="state" column="state" jdbcType="INTEGER" />
+		<result property="num" column="num" jdbcType="INTEGER" />
+		<result property="top" column="top" jdbcType="INTEGER" />
+		<result property="x" column="x" jdbcType="VARCHAR" />
+		<result property="y" column="y" jdbcType="VARCHAR" />
+		<result property="url" column="url" jdbcType="VARCHAR" />
+		<result property="c1" column="c1" jdbcType="VARCHAR" />
+		<result property="c2" column="c2" jdbcType="VARCHAR" />
+		<result property="c3" column="c3" jdbcType="VARCHAR" />
+		<result property="happentime" column="happentime" jdbcType="DATE" />
+		<result property="quxianid" column="quxianid" jdbcType="VARCHAR" />
+		<result property="shangquanid" column="shangquanid" jdbcType="VARCHAR" />
+		
+		<association property="course" column="id" javaType="com.pxjg.module.course.entity.Course" select="queryCourseByDeptid"></association>
+		
+		<association property="yh" column="id" javaType="com.pxjg.module.yh.entity.Yh" select="queryYhBySearchType"></association>
+		
+	</resultMap>
+    
+    
+    	<select id="queryCourseByDeptid" resultType="com.pxjg.module.course.entity.Course"
+		parameterType="String">
+			select * from Tbl_department_course where deptid = #{id} and rownum=1 order by seq asc
+		</select>
+    
+    	<select id="queryYhBySearchType" resultType="com.pxjg.module.yh.entity.Yh"
+			parameterType="String">
+			select * from tbl_yh where delflag !=1 and state = 1 and deptorcourseid =#{id} and rownum=1
+		</select>
+    
+    
+	<!-- 查询商圈下的机构 -->
+	<select id="queryDeptBySQ" resultType="com.pxjg.module.department.entity.Department"
+		parameterType="String" >
+
+		select * from TBL_DEPARTMENT where shangquanid=#{shangquanid}
+
+	</select>
+	
+		<!-- 查询城市下的机构 -->
+	<select id="queryDeptByCity" resultType="com.pxjg.module.department.entity.Department"
+		parameterType="String" >
+
+		select * from TBL_DEPARTMENT where cityid=#{cityid}
+
+	</select>
+	
+	<select id="queryDeptById" resultType="com.pxjg.module.department.entity.Department"
+		parameterType="String" >
+
+		select * from TBL_DEPARTMENT where id=#{id}
+
+	</select>
+	
+	<!-- 添加机构 -->
+	<insert id="addDept" parameterType="com.pxjg.module.department.entity.Department">
+		insert into
+		TBL_DEPARTMENT(id,deptname,depttype,cityid,description,address,tel,
+		content,state,num,top,x,y,url,happentime,c1,c2,c3,quxianid,shangquanid)
+		 values(
+			#{id,jdbcType=VARCHAR},
+			#{deptname,jdbcType=VARCHAR},
+			#{depttype,jdbcType=VARCHAR},
+			#{cityid,jdbcType=VARCHAR},
+			#{description,jdbcType=VARCHAR},
+			#{address,jdbcType=VARCHAR},
+			#{tel,jdbcType=VARCHAR},
+			#{content,jdbcType=VARCHAR},
+			#{state,jdbcType=VARCHAR},
+			#{num,jdbcType=VARCHAR},
+			#{top,jdbcType=VARCHAR},
+			#{x,jdbcType=VARCHAR},
+			#{y,jdbcType=VARCHAR},
+			#{url,jdbcType=VARCHAR},
+			sysdate,
+			#{c1,jdbcType=VARCHAR},
+			#{c2,jdbcType=VARCHAR},
+			#{c3,jdbcType=VARCHAR},
+			#{quxianid,jdbcType=VARCHAR},
+			#{shangquanid,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="updateDeptState" parameterType="map">
+		update TBL_DEPARTMENT set state= ${state}
+	    where id = '${id}'
+	</update>
+	
+	<update id="updateDept" parameterType="com.pxjg.module.department.entity.Department">
+		update TBL_DEPARTMENT 
+		set 
+		deptname = #{deptname,jdbcType=VARCHAR},
+		depttype = #{depttype,jdbcType=VARCHAR},
+		description = #{description,jdbcType=VARCHAR},
+		x = #{x,jdbcType=VARCHAR},
+		y = #{y,jdbcType=VARCHAR},
+		address = #{address,jdbcType=VARCHAR},
+		tel = #{tel,jdbcType=VARCHAR},
+		content = #{content,jdbcType=VARCHAR},
+		url = #{url,jdbcType=VARCHAR},
+		c1 = #{c1,jdbcType=VARCHAR}
+	    where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	
+	<select id="queryCountByDeptid" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(*) from tbl_department_news where deptid = '${deptid}' and type='${type}' ${search}
+	</select>
+	
+	<select id="queryCount" resultType="java.lang.Integer" parameterType="map">
+		select count(*) from tbl_department_news where type='${type}' ${search}
+	</select>
+	
+	
+		<select id="queryDeptBySearch" resultMap="deptResult"
+		parameterType="map">
+		<![CDATA[
+		
+		 ${search}
+		]]>
+	</select>
+	
+	
+		<select id="queryDeptBySearchCount" resultType="java.lang.Integer"
+		parameterType="map">
+		<![CDATA[
+			${search}
+		]]>	
+	</select>
+	<select id="queryRank"  resultType="com.pxjg.module.department.entity.Department" parameterType="map"> 
+	<![CDATA[
+    select * from TBL_DEPARTMENT where rowid in(select rid from (select rownum rn,rid from(select rowid rid from  
+		TBL_DEPARTMENT  order by num desc ) where rownum<=${endCount}) where rn>=${startCount})  order by num desc
+    ]]>
+	</select>
+	<select id="queryRankDeptCount"  resultType="int"> 
+			select count(id) from TBL_DEPARTMENT 
+	</select>
+	<update id="toTop" parameterType="map">
+		update TBL_DEPARTMENT set c2 = ${top} where id = '${id}'
+	
+	</update>
+	
+</mapper>

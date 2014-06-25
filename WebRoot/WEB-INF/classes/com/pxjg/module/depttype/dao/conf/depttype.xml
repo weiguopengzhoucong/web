@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="my_depttype">
+	<resultMap id="deptTypeResult" type="com.pxjg.module.depttype.entity.DeptType">
+		<result property="id" column="id" jdbcType="VARCHAR" />
+		<result property="parenid" column="parenid" jdbcType="VARCHAR" />
+		<result property="typename" column="typename" jdbcType="VARCHAR" />
+		<result property="content" column="content" jdbcType="NUMERIC" />
+		<result property="seq" column="seq" jdbcType="VARCHAR" />
+		<collection property="lsDepartment" column="id" javaType="java.util.ArrayList" ofType="com.pxjg.module.department.entity.Department" select="queryDeptByTypeId"/>
+	</resultMap>
+	
+	<select id="queryDeptByTypeId" resultType="com.pxjg.module.department.entity.Department"
+		parameterType="String" >
+
+		select * from TBL_DEPARTMENT where depttype=#{id}
+	</select>
+	
+	<select id="queryDeptTypeTree" resultType="com.pxjg.module.depttype.entity.DeptType"
+		resultMap="deptTypeResult">
+
+		select * from TBL_DEPARTMENT_TYPE
+
+	</select>
+	
+	
+	<select id="queryDeptTypeById" resultType="com.pxjg.module.depttype.entity.DeptType"
+		parameterType="String" >
+
+		select * from TBL_DEPARTMENT_TYPE where id=#{id}
+
+	</select>
+	
+	<select id="getDeptTypeCount" resultType="java.lang.Integer"
+		parameterType="com.pxjg.module.depttype.entity.DeptType">
+		SELECT COUNT(*)
+		from TBL_DEPARTMENT_TYPE
+		where 1=1 ${sql}
+	</select>
+	
+	<select id="getParentCount" resultType="java.lang.Integer"
+		parameterType="String">
+		SELECT COUNT(*)
+		from TBL_DEPARTMENT_TYPE
+		where parentid=#{id}
+	</select>
+	<insert id="addDeptType" parameterType="com.pxjg.module.depttype.entity.DeptType">
+
+
+		insert into
+		TBL_DEPARTMENT_TYPE(
+		id,
+		parentid,
+		typename,
+		content,
+		seq
+		)values(
+		SEQ_DEPTTYPE.NEXTVAL,
+		#{parentid,jdbcType=NUMERIC},
+		#{typename,jdbcType=VARCHAR},
+		#{content,jdbcType=VARCHAR},
+		#{seq,jdbcType=VARCHAR}
+		)
+		<selectKey resultType="String" keyProperty="id"> 
+		select SEQ_DEPTTYPE.currval from dual 
+		</selectKey>
+	</insert>
+	<update id="updateDeptType" parameterType="com.pxjg.module.depttype.entity.DeptType">
+
+		update
+		TBL_DEPARTMENT_TYPE
+		set
+		typename=#{typename,jdbcType=VARCHAR},
+		content=#{content,jdbcType=VARCHAR}
+		where
+		id
+		=#{id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteDeptType" parameterType="com.pxjg.module.depttype.entity.DeptType">
+
+		delete from 
+		TBL_DEPARTMENT_TYPE
+		where
+		id
+		=#{id,jdbcType=VARCHAR}
+	</delete>
+	<select id="queryChildDeptType" resultMap="deptTypeResult"
+		parameterType="String">
+
+		select * from TBL_DEPARTMENT_TYPE where parentid = #{id}
+
+	</select>
+
+
+
+</mapper>

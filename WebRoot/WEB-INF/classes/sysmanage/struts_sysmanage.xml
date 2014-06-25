@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+
+	<package name="usersAction" extends="struts-default" namespace="/">
+		<action name="userAction" class="userAction">
+			<result name="loginPage">/jsp/login.jsp</result>
+			<result name="deptUserList">/jsp/deptUserList.jsp</result>
+			<result name="update">/jsp/updateUser.jsp</result>
+			<result name="addUser">/jsp/addUser.jsp</result>
+			<result name="updatePassword">/jsp/updatePassword.jsp</result>
+			<result name="userList">/jsp/userList.jsp</result>
+		</action>
+		<action name="indexAction" class="userAction">
+			<result>/jsp/main.jsp</result>
+		</action>
+	</package>
+	<package name="regionAction" extends="struts-default">
+		<action name="regionAction" class="regionAction">
+			<result name="regionList">/jsp/region_list.jsp</result>
+			<result name="departmentList2">/jsp/department_list2.jsp</result>
+		</action>
+	</package>
+	<package name="deptTypeAction" extends="struts-default">
+		<action name="deptTypeAction" class="deptTypeAction">
+			<result name="depttypeList">/jsp/depttype_list.jsp</result>
+		</action>
+	</package>
+	<package name="deptAction" extends="struts-default">
+		<action name="deptAction" class="deptAction">
+			<result name="addDept">/jsp/addDept.jsp</result>
+			<result name="deptList">/jsp/deptList.jsp</result>
+			<result name="updateDept">/jsp/updateDept.jsp</result>
+			<result name="detailDept">/jsp/detailDept.jsp</result>
+			<result name="rank">/jsp/deptRankList.jsp</result>
+			
+		</action>
+	</package>
+	
+	<package name="newsAction" extends="struts-default">
+		<action name="newsAction" class="newsAction">
+			<result name="addnews">/jsp/news/add_news.jsp</result>
+			<result name="updatenews">/jsp/news/update_news.jsp</result>
+			<result name="news_list">/jsp/news/news_list.jsp</result>
+			<result name="add_dept_news">/jsp/news/add_dept_news.jsp</result>
+			<result name="update_dept_news">/jsp/news/update_dept_news.jsp</result>
+			<result name="update_dept_news_admin">/jsp/news/update_dept_news_admin.jsp</result>
+			<result name="news_dept_list">/jsp/news/news_dept_list.jsp</result>
+			<result name="news_dept_list_admin">/jsp/news/news_dept_list_admin.jsp</result>
+			<result name="add_school_news">/jsp/news/add_school_news.jsp</result>
+			<result name="update_school_news">/jsp/news/update_school_news.jsp</result>
+			<result name="news_school_list">/jsp/news/news_school_list.jsp</result>
+			<result name="add_teacher_news">/jsp/news/add_teacher_news.jsp</result>
+			<result name="update_teacher_news">/jsp/news/update_teacher_news.jsp</result>
+			<result name="news_teacher_list">/jsp/news/news_teacher_list.jsp</result>
+			
+		</action>
+	</package>
+	
+	<package name="courseAction" extends="struts-default">
+		<action name="courseAction" class="courseAction">
+			<result name="add_course">/jsp/course/add_course.jsp</result>
+			<result name="update_course">/jsp/course/update_course.jsp</result>
+			<result name="course_list">/jsp/course/course_list.jsp</result>
+		</action>
+	</package>
+	
+	<package name="fileUpload" extends="struts-default">
+		<action name="fileUpload" class="fileUpload">
+			<interceptor-ref name="fileUploadStack" />
+			<result name="uploadJsp">/jsp/uploadsFiles.jsp</result>
+			<result name="success">/jsp/uploadsFiles.jsp</result>
+		</action>
+	</package>
+	
+	
+	<package name="IndexAction" extends="struts-default">
+		<action name="IndexAction" class="IndexAction">
+			<interceptor-ref name="fileUploadStack" />
+			<result name="index">/frontJsp/index.jsp</result>
+			<result name="map">/frontJsp/map.jsp</result>
+			<result name="course">/frontJsp/course.jsp</result>
+			<result name="dept_list">/frontJsp/dept_list.jsp</result>
+			<result name="myspace">/frontJsp/myspace.jsp</result>
+			<result name="dept_detail">/frontJsp/dept_detail.jsp</result>
+			<result name="news_list">/frontJsp/news_list.jsp</result>
+			<result name="news_detail">/frontJsp/news_detail.jsp</result>
+			<result name="dept_list_frame">/frontJsp/dept_list_frame.jsp</result>
+			<result name="dept_list_frame_click_top">/frontJsp/dept_list_frame_click_top.jsp</result>
+			<result name="course_detail">/frontJsp/course_detail.jsp</result>
+			
+		</action>
+	</package>
+	
+	<package name="yhAction" extends="struts-default">
+		<action name="yhAction" class="yhAction">
+			<result name="yhList">/jsp/yhList.jsp</result>
+			<result name="addYh">/jsp/addYh.jsp</result>
+			<result name="updateYh">/jsp/updateYh.jsp</result>
+		</action>
+	</package>
+	
+	<package name="frontUserAction" extends="struts-default">
+		<action name="frontUserAction" class="frontUserAction">
+			<result name="updateUser">/frontJsp/user/updateUser.jsp</result>
+			<result name="redirectUpdateUser" type="redirect">frontUserAction!mySpace.do</result>
+			<result name="updatePassword">/frontJsp/user/updatePassword.jsp</result>
+			<result name="register">/frontJsp/user/register.jsp</result>
+			<result name="index">/frontJsp/index.jsp</result>
+			<result name="jihuo_error">/frontJsp/jihuo_error.jsp</result>
+			<result name="jihuo_user">/frontJsp/user/jihuo_user.jsp</result>
+		</action>
+	</package>
+	
+	<package name="collectionAction" extends="struts-default">
+		<action name="collectionAction" class="collectionAction">
+			<result name="course_collection">/frontJsp/user/course_collection.jsp</result>
+			<result name="dept_collection">/frontJsp/user/dept_collection.jsp</result>
+		</action>
+	</package>
+	
+	<package name="remarkAction" extends="struts-default">
+		<action name="remarkAction" class="remarkAction">
+			<result name="goRemark">/frontJsp/user/remark.jsp</result>
+			<result name="dept_remark">/jsp/remark/dept_remark.jsp</result>
+			<result name="manager_remark">/jsp/remark/manager_remark.jsp</result>
+			<result name="reply">/jsp/remark/reply.jsp</result>
+			<result name="detail">/jsp/remark/detail.jsp</result>
+			<result name="myRemark">/frontJsp/user/myRemark.jsp</result>
+			<result name="updateRemark">/frontJsp/user/updateRemark.jsp</result>
+		</action>
+	</package>
+
+</struts>
+
+

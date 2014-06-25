@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="my_basedata">
+
+	<select id="queryYear" resultType="String">
+      select year from tbl_dic_year
+	</select>
+	<select id="queryMonth" resultType="String">
+      select month from tbl_dic_month
+	</select>
+	<select id="queryDay" resultType="String">
+      select day from tbl_dic_day
+	</select>
+	<select id="queryXingZuo" resultType="String">
+      select xingzuo from tbl_dic_xingzuo
+	</select>
+	
+</mapper>

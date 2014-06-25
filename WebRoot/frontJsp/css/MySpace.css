@@ -1,0 +1,59 @@
+@charset "utf-8";
+/*form css */
+input[type=text], select, textarea{ padding:4px;}
+.width150{ width:150px;}
+.width100{ width:340px;}
+
+/* layput */
+.main_cen{ float:left; margin-left:15px; width:570px;  padding:20px; background:#fff;}
+.main_cen h2{ border-bottom:1px dotted #ccc; font-size:18px; padding-left:40px; line-height:30px;}
+.main_cen ul{ margin-top:15px; margin-left:40px;}
+.main_cen ul li{ margin-top:15px;}
+.main_cen ul li label, .main_cen ul li .column{ display:inline-block; }
+.main_cen ul li label{ width:80px; text-align:right; font-size:14px;}
+.main_cen ul li .column{ margin-left:15px;}
+.main_cen ul li .column span{padding-right:10px;}
+
+
+/*left sider*/
+
+.container .mainWrap .mainLf .mainSort{ margin:10px 0 0 0; overflow:hidden}
+.sidebar{ float:left; width:230px; }
+.fontsize{ font-size:16px; font-weight:600;}
+.sidebar .sideTitle{ background:url(../images/bg/bg_sidebar.png) no-repeat 0 0; height:45px; padding:13px 12px 0 14px;}
+.sidebar .sideTitle .userIco, .sidebar .sideTitle .helpselect {  padding:0 0 0 24px; display:inline-block; color:#3d3d3e; font-size:16px; float:left;}
+.sidebar .sideTitle .userIco{background:url(../images/ico/ico_info_03.png) no-repeat; height:20px; }
+.sidebar .sideMenu{ margin:-11px 10px 0 10px;}
+
+
+.sidebar .sideMenu .menutitle{ padding: 10px 20px;background:#eeeded; border-bottom:1px solid #b9b8b8;}
+.sidebar .sideMenu .menutitle span{background:url(../images/ico/ico_info.png) no-repeat;padding-left:20px; display:block; }
+.sidebar .sideMenu .menutitle span.house{ background-position:1px -15px;}
+.sidebar .sideMenu .menutitle span.class{ background-position:1px -29px;}
+.sidebar .sideMenu .menutitle span a{ color:#000; font-weight:bold;}
+.sidebar .sideMenu .menulist li{border-bottom:1px solid #b9b8b8; border-left:1px solid #b9b8b8; border-right:1px solid #b9b8b8;}
+.sidebar .sideMenu .menulist li:first-child{border-top:1px solid #b9b8b8;}
+.sidebar .sideMenu .menulist li .subnav{ background:#fff;  }
+.sidebar .sideMenu .menulist li .subnav span{ display:block;line-height:30px; border-top:1px dashed #b9b8b8; padding-left:50px; overflow:hidden;}
+.sidebar .sideMenu .menulist li .subnav span:first-child{ border-top:0;}
+
+/* help slect class */
+.sidebar.news{ float:none; width:255px; position:relative; left:-5px;}
+.sidebar.news .sideTitle{ background:url(../images/bg/bg_news.png) no-repeat 0 0; width:229px; position:relative}
+.sidebar .sideTitle .helpselect{background:url(../images/ico/ico_help_05.png) no-repeat; height:22px; }
+
+.sidebar.news .sideMenu{ margin-right:5px;  margin-left:5px; }
+.sidebar.news .helpBox{ background:#fff; border:1px solid #b9b8b8; padding:10px; overflow:hidden;}
+.sidebar.news .helpBox ul{ margin:0 auto;}
+.sidebar.news .helpBox li{ height:30px; line-height:30px; padding:0 7px; float:left; background:#5b89dc; color:#fff; margin-left:4px; margin-bottom:4px;}
+.sidebar.news .helpBox li a{ color:#3d3d3e; font-family:'宋体'; background:url(../images/ico/ico_navsLi.png) no-repeat 0 18px; padding:0 0 0 14px;}
+
+.btn_submit{ margin:30px auto 50px 120px;}
+.btn_class{ margin:6px auto 0;}
+.btn_submit span{ background:url(../images/btn/btn_bg.png) left top no-repeat; text-align:center; font-size:18px; font-weight:400;  line-height:46px; display:inline-block; }
+.btn_submit span.reset, .btn_submit span.save{ width:142px; margin-left:15px;}
+.btn_submit span.save{ background-position: 0 -46px;}
+.btn_submit span.class{ background-position: 0 -92px; width:222px;}
+
+
+

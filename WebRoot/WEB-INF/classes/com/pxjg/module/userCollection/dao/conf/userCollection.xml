@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="my_collection">
+
+	<resultMap id="collectionResult" type="com.pxjg.module.userCollection.entity.UserCollection">
+		<result property="id" column="id" jdbcType="VARCHAR" />
+		<result property="userid" column="userid" jdbcType="VARCHAR" />
+		<result property="type" column="type" jdbcType="VARCHAR" />
+		<result property="sate" column="sate" jdbcType="VARCHAR" />
+		<result property="deptid" column="deptid" jdbcType="VARCHAR" />
+		<result property="newid" column="newid" jdbcType="VARCHAR" />
+		<result property="cid" column="cid" jdbcType="VARCHAR" />
+		<result property="happentime" column="happentime" jdbcType="VARCHAR" />
+		
+		<association property="course" column="cid" javaType="com.pxjg.module.course.entity.Course" select="queryCourseByCid"></association>
+		
+		<association property="dept" column="deptid" javaType="com.pxjg.module.department.entity.Department" select="queryDeptByDeptId"></association>
+		
+	</resultMap>
+	<insert id="insertCollection" parameterType="com.pxjg.module.userCollection.entity.UserCollection">
+		insert into
+		TBL_USER_COLLECTION(
+		id,
+		userid,
+		type,
+		sate,
+		deptid,
+		newid,
+		cid,
+		happentime
+		)values(
+		#{id,jdbcType=VARCHAR},
+		#{userid,jdbcType=VARCHAR},
+		#{type,jdbcType=VARCHAR},
+		#{sate,jdbcType=VARCHAR},
+		#{deptid,jdbcType=VARCHAR},
+		#{newid,jdbcType=VARCHAR},
+		#{cid,jdbcType=VARCHAR},
+		sysdate
+		)
+	</insert>
+	<delete id="deleteCollection" parameterType="String">
+			delete from TBL_USER_COLLECTION where id = #{id}
+	</delete>
+	<select id="queryDeptCollection" parameterType="map" resultType="com.pxjg.module.userCollection.entity.UserCollection"> 
+			select * from TBL_USER_COLLECTION where userid = '${userid}' and deptid = '${deptid}'
+	</select>
+	<select id="queryCourseCollection" parameterType="map" resultType="com.pxjg.module.userCollection.entity.UserCollection"> 
+			select * from TBL_USER_COLLECTION where userid = '${userid}' and cid = '${cid}'
+	</select>
+	
+	<select id="queryPageCount" parameterType="map" resultType="int"> 
+			select count(id) from TBL_USER_COLLECTION where 1=1 ${param}
+	</select>
+	
+	<select id="queryDeptByDeptId" parameterType="String" resultType="com.pxjg.module.department.entity.Department"> 
+			select * from TBL_DEPARTMENT where id = #{deptid}
+	</select>
+	
+	<select id="queryCourseByCid" parameterType="String" resultType="com.pxjg.module.course.entity.Course"> 
+			select * from Tbl_department_course where id = #{cid}
+	</select>
+	
+	<select id="queryCollectionByPage" parameterType="map" resultMap="collectionResult"> 
+	<![CDATA[
+    select * from TBL_USER_COLLECTION where rowid in(select rid from (select rownum rn,rid from(select rowid rid from  
+		TBL_USER_COLLECTION where 1=1 ${param} ) where rownum<=${endCount}) where rn>=${startCount}) 
+    ]]>
+	</select>
+	
+</mapper>

@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>下拉菜单.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+	<script type="text/javascript">
+	var itemTitle  = new Array(); 
+var itemContent = new Array(); 
+var itemExpand = new Array(); 
+var numItem   = 0;     
+var borderSize = 0; 
+var expandId  = "expandDiv"; 
+var layerWidth = 300; 
+var layerIndent = 1; 
+var layerHeight = "<br>"; 
+var layerColor = "FFFFFF"; 
+var ns4     = (document.layers)? true:false; 
+var ie4     = (document.all)? true:false; 
+
+function add_expand(title, content) { 
+ itemTitle[numItem]  = title; 
+ itemContent[numItem] = content; 
+ itemExpand[numItem] = 0; 
+ numItem++; 
+
+} 
+
+function set_closeImage(url) { 
+ closeImage = "<img src=" + url + " border=0>"; 
+} 
+
+function set_openImage(url) { 
+ openImage = "<img src=" + url + " border=0>"; 
+} 
+function set_indent(indent) { 
+ layerIndent = indent; 
+} 
+
+function set_indent(height) { 
+ layerHeight = height; 
+} 
+function create_expand(width, height, left, top, border, bgcolor) { 
+ borderSize = border; 
+ layerWidth = width; 
+ layerColor = bgcolor; 
+ outWidth = width + borderSize; 
+ document.writeln('<STYLE>'); 
+ document.write('#expandDiv {position:absolute; left:' + left + '; top:' + top + '; width:' + width + '; height:' + height + ';}'); 
+ document.writeln('</STYLE>'); 
+ document.writeln('<DIV ID="expandDiv">'); 
+ document.writeln('<table border=0 cellspacing=8 cellpadding=' + borderSize + ' width=' + layerWidth + '><TR><TD bgcolor=green>'); 
+ document.writeln('<table border=0 cellspacing=0 cellpadding=3 width=100% bgcolor=' + layerColor + '><TR><TD>'); 
+ for (i = 0; i < numItem; i++) { 
+document.writeln('<a href="javascript:toggle_expand(' + i + '); display_expand()">' + closeImage + itemTitle[i] + '</a><BR>'); 
+ } 
+ document.writeln('</TD></TR></TABLE></TD></TR></TABLE>'); 
+ document.writeln('</DIV>'); 
+} 
+
+
+function toggle_expand(num) { 
+ itemExpand[num] = itemExpand[num] ? 0 : 1; 
+} 
+
+
+function display_expand() { 
+
+ var replaceText = ""; 
+
+  
+ replaceText += '<table border=0 cellspacing=8 cellpadding=' + borderSize + ' width=' + layerWidth + '><TR><TD bgcolor=green>'; 
+ replaceText += '<table border=0 cellspacing=0 cellpadding=3 width=100% bgcolor=' + layerColor + '><TR><TD>'; 
+  
+  
+ for (i = 0; i < numItem; i++) { 
+if (itemExpand[i] == 1) { 
+ replaceText += "<a href=\"javascript:toggle_expand(" + i 
++ "); display_expand()\">" + openImage + itemTitle[i] + "</a>" + layerHeight; 
+ replaceText += "<table width=" + layerWidth + "><tr><td>"; 
+   for (j = 0; j < layerIndent; j++) { 
+replaceText += "&nbsp;"; 
+ } 
+ replaceText += "</td><td>"; 
+ replaceText += itemContent[i] + "</td></tr></table>"; 
+  } 
+  else { 
+ replaceText += "<a href=\"javascript:toggle_expand(" + i + "); display_expand()\">" 
++ closeImage + itemTitle[i] + "</a><BR>"; 
+  } 
+ } 
+
+  
+ replaceText += "</TD></TR></TABLE></TD></TR></TABLE>"; 
+
+  
+ if (ns4) { 
+  var lyr = document.layers[expandId].document; 
+  lyr.open(); 
+  lyr.writeln(replaceText); 
+  lyr.close(); 
+ } 
+ else { 
+document.all[expandId].innerHTML = replaceText; 
+ } 
+
+} 
+	
+	</script>
+	
+	<SCRIPT> 
+
+ arrow = "<img src=line.gif border=0> " 
+ content = arrow + 
+"<A href=../a.htm>次菜单名1</A><BR>" + 
+arrow + 
+
+"<A href=../b.htm>次菜单名2</A><BR>"; 
+ add_expand("主菜单名1", content); 
+
+ content = arrow + 
+"<A href=../c.htm>次菜单名1</A><BR>" + 
+arrow + 
+"<A href=../d.htm>次菜单名2</A><BR>" + 
+arrow + 
+"<A href=../e.htm>次菜单名3</A><BR>" + 
+  arrow + 
+"<A href=../f.htm>次菜单名4</A><BR>" + 
+arrow + 
+"<A href=../g.htm>次菜单名5</A><BR>"; 
+ add_expand("主菜单名2", content); 
+ set_closeImage("close.gif"); 
+ set_openImage("open.gif"); 
+</SCRIPT> 
+	
+  </head>
+  
+  <body>
+    <SCRIPT>   
+ create_expand(320, 250, 0, 0, 0, "#FFFFFF");   
+</SCRIPT>  
+
+  </body>
+</html>

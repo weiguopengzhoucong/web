@@ -1,0 +1,81 @@
+ <html>   
+  <head>   
+  <meta   http-equiv="Content-Type"   content="text/html;   charset=gb2312">   
+  <title>JK:支持民族工业,尽量少买X货</title>   
+  <script   language="javascript">   
+  var   beginMoving=false;   
+  function   MouseDownToMove(obj){   
+  obj.style.zIndex=1;   
+  obj.mouseDownY=event.clientY;   
+  obj.mouseDownX=event.clientX;   
+  beginMoving=true;   
+   obj.setCapture();    
+  }   
+    
+  function   MouseMoveToMove(obj){   
+          if(!beginMoving)   return   false;   
+  obj.style.top   =   (event.clientY-obj.mouseDownY);   
+  obj.style.left   =   (event.clientX-obj.mouseDownX);   
+  }   
+  function   MouseUpToMove(obj){   
+  if(!beginMoving)   return   false;   
+            obj.releaseCapture(); 
+       
+  obj.style.top=0;   
+  obj.style.left=0;   
+  obj.style.zIndex=0;   
+  beginMoving=false;   
+  var   tempTop=event.clientY-obj.mouseDownY;   
+  var   tempRowIndex=(tempTop-tempTop%25)/25;   
+
+  if(tempRowIndex+obj.rowIndex   <0   ){
+	tempRowIndex=-1;  
+  } 
+  else  { 
+ 
+  tempRowIndex=tempRowIndex+obj.rowIndex; 
+}  
+  if(tempRowIndex   >=   obj.parentElement.rows.length-1) {
+  tempRowIndex   =   obj.parentElement.rows.length-1; 
+  }
+
+  if(tempRowIndex!=0){
+	obj.parentElement.moveRow(obj.rowIndex,tempRowIndex);
+  }
+  
+	alert(obj.rowIndex+"---"+tempRowIndex)
+  }   
+    
+  </script>   
+  </head>   
+  <body   >   
+    
+  <TABLE   WIDTH="300"   BORDER="1"   align="left">   
+  <tr><TD   bgcolor=blue></TD><TD></TD><TD>排序</TD></tr> 
+  <TR   bgcolor=#ffffff   style='height:25;position:relative;'   onmousedown='MouseDownToMove(this)'   onmousemove='MouseMoveToMove(this)'   onmouseup='MouseUpToMove(this);'><TD   bgcolor=blue>0</TD><TD>0</TD><TD><a href="#">0</a></TD></TR>   
+  <TR   bgcolor=#ffffff   style='height:25;position:relative;'   onmousedown='MouseDownToMove(this)'   onmousemove='MouseMoveToMove(this)'   onmouseup='MouseUpToMove(this);'><TD   bgcolor=black>1</TD><TD>1</TD><TD>1</TD></TR>   
+  <TR   bgcolor=#ffffff   style='height:25;position:relative;'   onmousedown='MouseDownToMove(this)'   onmousemove='MouseMoveToMove(this)'   onmouseup='MouseUpToMove(this);'><TD   bgcolor=red>2</TD><TD>2</TD><TD>2</TD></TR>   
+  <TR   bgcolor=#ffffff   style='height:25;position:relative;'   onmousedown='MouseDownToMove(this)'   onmousemove='MouseMoveToMove(this)'   onmouseup='MouseUpToMove(this);'><TD>3</TD><TD>3</TD><TD>3</TD></TR>   
+  <TR   bgcolor=#ffffff   style='height:25;position:relative;'   onmousedown='MouseDownToMove(this)'   onmousemove='MouseMoveToMove(this)'   onmouseup='MouseUpToMove(this);'><TD>4</TD><TD>4</TD><TD>4</TD></TR>   
+  <TR   bgcolor=#ffffff   style='height:25;position:relative;'   onmousedown='MouseDownToMove(this)'   onmousemove='MouseMoveToMove(this)'   onmouseup='MouseUpToMove(this);'><TD>5</TD><TD>5</TD><TD>5</TD></TR>   
+  <TR   bgcolor=#ffffff   style='height:25;position:relative;'   onmousedown='MouseDownToMove(this)'   onmousemove='MouseMoveToMove(this)'   onmouseup='MouseUpToMove(this);'><TD>6</TD><TD>6</TD><TD>6</TD></TR>   
+  <TR   bgcolor=#ffffff   style='height:25;position:relative;'   onmousedown='MouseDownToMove(this)'   onmousemove='MouseMoveToMove(this)'   onmouseup='MouseUpToMove(this);'><TD>7</TD><TD>7</TD><TD>7</TD></TR>   
+  </TABLE>
+  <TABLE   WIDTH="50"   BORDER="1"  >   
+  <tr><TD   bgcolor=blue>排序</TD></tr> 
+  <TR><td><a href="#">修改</a></TD></TR>   
+  <TR><td><a href="#">修改</a></TD></TR>   
+  <TR><td><a href="#">修改</a></TD></TR>   
+  <TR><td><a href="#">修改</a></TD></TR>   
+  <TR><td><a href="#">修改</a></TD></TR>   
+  <TR><td><a href="#">修改</a></TD></TR>   
+  <TR><td><a href="#">修改</a></TD></TR>   
+  <TR><td><a href="#">修改</a></TD></TR>   
+  <TR><td><a href="#">修改</a></TD></TR>   
+  </TABLE>     
+
+
+
+  </body>   
+  </html>
+

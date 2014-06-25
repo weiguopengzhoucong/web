@@ -1,0 +1,307 @@
+@charset "utf-8";
+/* @时间：2013.07.11  @制作者：吕彬  @qq:286504720*/
+
+body{
+	background:url(../images/bg.jpg) repeat;
+}
+.layout{
+	width:100%;
+	padding:65px 0;
+}
+.menu{
+	width:170px;
+	padding:0 8px 0 65px;
+	float:left;
+}
+.menu dt{
+	background:url(../images/menu-bt.jpg) no-repeat;
+	width:170px;
+	height:36px;
+	font:700 16px/36px "微软雅黑";
+	text-align:center;
+}
+.menu dd{
+	margin-top:10px;
+	background:url(../images/menu-btn.jpg) no-repeat;
+	height:31px;
+	width:170px;
+	text-align:center;
+}
+.menu dd.hover{
+	background: url(../images/menu-hover-btn.jpg) no-repeat;
+	height:30px;
+}
+.menu dd a{
+	font:14px/30px "宋体";
+	color:#000;
+}
+.contant{
+	float:left;
+	width:900px;
+	padding:0 30px;
+}
+.contant h1{
+	font:18px/36px "微软雅黑";
+	color:#769600;
+	margin-bottom:10px;
+}
+.contant label{
+	display:block;
+	clear:both;
+	padding:6px 0;
+	min-height:25px;
+}
+.contant label span.text{
+	font:700 14px/25px  "宋体";
+	color:#ff7800;
+	vertical-align:top;
+	padding-right:5px;
+	width:75px;
+	display:inline-block;
+}
+.contant label em{
+	font:12px/25px  "宋体";
+	color:#999;
+	padding:0 4px;
+}
+.contant label .sW130{
+	background: url(../images/select-130.jpg) no-repeat;
+	height:25px;
+	width:130px;
+}
+.contant label .sW170{
+	background: url(../images/select-170.jpg) no-repeat;
+	height:25px;
+	width:170px;
+}
+.contant label .select{
+	position:relative;
+	z-index:9;
+	margin-right:10px;
+}
+.contant label .select em{
+	float:right;
+	width:25px;
+	height:25px;
+	cursor:pointer;
+}
+.contant label .select ul.sel{
+	height:25px;
+	overflow:hidden;
+}
+.contant label .select ul.sel li{
+	padding-left:5px;
+	line-height:25px;
+}
+.contant label .select .list{
+	background:#fff;
+	border:1px solid #ddd;
+	padding:5px;
+	display:none;
+}
+.contant label .select .list li{
+	height:28px;
+	margin:3px 0;
+	padding:0 5px;
+	background:#eee;
+	cursor:pointer;
+	line-height:28px;
+}
+.contant label .text-140{
+	background:url(../images/text-140.jpg) no-repeat;
+	width:136px;
+	padding:0 2px;
+	height:25px;
+	line-height:24px;
+	border:0 none;
+	margin-right:8px;
+}
+.contant label .text-150{
+	background:url(../images/text-150.png) no-repeat;
+	width:146px;
+	padding:0 2px;
+	height:25px;
+	line-height:24px;
+	border:0 none;
+	margin-right:12px;
+}
+.contant label .text-170{
+	background:url(../images/text-170.jpg) no-repeat;
+	width:166px;
+	padding:0 2px;
+	height:25px;
+	line-height:24px;
+	border:0 none;
+	margin-right:12px;
+}
+.contant label .text-199{
+	background:url(../images/text-199.jpg) no-repeat;
+	width:195px;
+	padding:0 2px;
+	height:25px;
+	line-height:24px;
+	border:0 none;
+}
+.contant label .textarea-435-65{
+	background:url(../images/textarea-435-65.jpg) no-repeat;
+	width:431px;
+	padding:2px;
+	height:61px;
+	line-height:21px;
+	border:0 none;
+	margin-left:-3px;
+}
+.contant label .textarea-435-95{
+	background:url(../images/textarea-435-95.png) no-repeat;
+	width:431px;
+	padding:2px;
+	height:91px;
+	line-height:21px;
+	border:0 none;
+	margin-left:-3px;
+}
+.contant label .img-box{
+	display:inline-block;
+	float:left;
+}
+.contant label .img-box img{
+	margin-bottom:25px;
+	display:block;
+}
+.contant label  .upload-btn{
+	background:url(../images/upload-img.jpg) no-repeat;
+	width:100px;
+	height:25px;
+	border:0 none;
+}
+.contant .W508{
+	text-align:center;
+	width:508px;
+}
+.contant .table-btn{
+	padding:8px 0;
+	width:637px;
+}
+.contant .W508 .exchange-btn{
+	background:url(../images/exchange-btn.png) no-repeat;
+	width:102px;
+	height:32px;
+	border:0 none;
+	margin:0 5px;
+}
+.contant .W508 .false-btn{
+	background:url(../images/false-btn.png) no-repeat;
+	width:104px;
+	height:34px;
+	border:0 none;
+	margin:0 5px;
+}
+.contant .table-box{
+	width:637px;
+	overflow:hidden;
+}
+.contant .table-box .title{
+	width:600px;
+	padding-left:37px;
+	height:30px;
+	font:700 14px/30px "宋体";
+	color:#8bb100;
+	margin-bottom:8px;
+}
+
+.contant .table-box table{
+	width:100%;
+	border-left:1px solid #dbdbdb;
+	background:#fff;
+	font:12px/28px "宋体";
+}
+.contant .table-box th{
+	background:url(../images/table_bg.jpg) repeat-x;
+	height:28px;
+	border-right:1px solid #dbdbdb;
+	border-top:1px solid #cbcfa9;
+	border-bottom:1px solid #cbcfa9;
+	text-align:center;
+	color:#ff7800;
+}
+.contant .table-box td{
+	height:28px;
+	border-right:1px solid #dbdbdb;
+	border-bottom:1px solid #dbdbdb;
+	text-align:center;
+	color:#737373;
+}
+.contant .table-box tr.bg{
+	background:#eaf6d9;
+}
+.contant .table-box td .write,.contant .table-box td .x{
+	height:16px;
+	width:16px;
+	border:0 none;
+	margin:0 8px;
+}
+.contant .table-box td .write{
+	background:url(../images/writer.png) no-repeat;
+}
+.contant .table-box td .write_2{
+	background:url(../images/writer-2.jpg) no-repeat;
+}
+.contant .table-box td .x{
+	background:url(../images/x.jpg) no-repeat;
+}
+.contant .table-box td .x_2{
+	background:url(../images/x-2.jpg) no-repeat;
+}
+.contant .hr{
+	background:url(../images/hr.jpg) no-repeat;
+	width:699px;
+	height:15px;
+	margin:10px 0 20px 0;
+	clear:both;
+}
+.contant p{
+	font:12px/28px "宋体";
+}
+.contant p.center{
+	text-align:center;
+}
+.contant p a{
+	color:#000;
+}
+.contant p.red{
+	color:#f00;
+}
+.contant p.p_15{
+	padding:15px 0;
+}
+.contant .pages{
+	padding:8px 0;
+}
+.contant .pages_left{
+	background:url(../images/pages-left.jpg) no-repeat;
+	width:293px;
+	height:30px;
+	float:left;
+	margin-right:1px;
+}
+.contant .pages div{
+	float:left;
+	height:30px;
+	margin-bottom:15px;
+}
+.contant div.pages_num{
+	background:url(../images/nums.jpg) no-repeat;
+	color:#444;
+	font:12px/30px "宋体";
+	width:30px;
+	text-align:center;
+	margin:0 1px;
+}
+.contant .pages_right{
+	background:url(../images/pages-right.jpg) no-repeat;
+	width:250px;
+	height:30px;
+	float:left;
+	margin-left:1px;
+	text-align:center;
+}

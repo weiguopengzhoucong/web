@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="my_region">
+	<resultMap id="regionResult" type="com.pxjg.module.region.entity.Region">
+		<result property="re_id" column="re_id" jdbcType="VARCHAR" />
+		<result property="parent_id" column="parent_id" jdbcType="VARCHAR" />
+		<result property="region_name" column="region_name" jdbcType="VARCHAR" />
+		<result property="region_type" column="region_type" jdbcType="NUMERIC" />
+		<result property="remark1" column="remark1" jdbcType="VARCHAR" />
+		<result property="remark2" column="remark2" jdbcType="VARCHAR" />
+		<result property="remark3" column="remark3" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="queryRegionTree" resultType="com.pxjg.module.region.entity.Region"
+		resultMap="regionResult">
+
+		select * from TBL_REGION
+
+	</select>
+	
+	
+	<select id="queryRegionById" resultType="com.pxjg.module.region.entity.Region"
+		parameterType="String" >
+
+		select * from TBL_REGION where re_id=#{id}
+
+	</select>
+	<select id="queryRegion" resultType="com.pxjg.module.region.entity.Region"
+		parameterType="com.pxjg.module.region.entity.Region" resultMap="regionResult">
+	<![CDATA[
+		select * from (select a.* from (select * from TBL_REGION where 1=1 ${sql}
+    ) a where rowid in(select rid from
+    (select rownum rn,rid from(select rowid rid,id from(select * from TBL_REGION where 1=1 ${sql}
+    )  ) where
+    rownum<= ${endCount}) where rn>=${startCount}) ) 
+    ]]>
+	</select>
+	<select id="getRegionCount" resultType="java.lang.Integer"
+		parameterType="com.pxjg.module.region.entity.Region">
+		SELECT COUNT(*)
+		from TBL_REGION
+		where 1=1 ${sql}
+	</select>
+	<select id="getParentCount" resultType="java.lang.Integer"
+		parameterType="String">
+		SELECT COUNT(*)
+		from TBL_REGION
+		where parent_id=#{id}
+	</select>
+	<insert id="addRegion" parameterType="com.pxjg.module.region.entity.Region">
+
+
+		insert into
+		TBL_REGION(
+		re_id,
+		parent_id,
+		region_name,
+		region_type,
+		remark1,
+		remark2,
+		remark3
+		)values(
+		SEQ_REGION.NEXTVAL,
+		#{parent_id,jdbcType=NUMERIC},
+		#{region_name,jdbcType=VARCHAR},
+		#{region_type,jdbcType=VARCHAR},
+		#{remark1,jdbcType=VARCHAR},
+		#{remark2,jdbcType=VARCHAR},
+		#{remark3,jdbcType=VARCHAR}
+		)
+		<selectKey resultType="String" keyProperty="re_id"> 
+		select SEQ_REGION.currval from dual 
+		</selectKey>
+	</insert>
+	<update id="updateRegion" parameterType="com.pxjg.module.region.entity.Region">
+
+		update
+		TBL_REGION
+		set
+		region_name=#{region_name,jdbcType=VARCHAR},
+		remark1=#{remark1,jdbcType=VARCHAR},
+		remark2=#{remark2,jdbcType=VARCHAR},
+		remark3=#{remark3,jdbcType=VARCHAR}
+		where
+		re_id
+		=#{re_id,jdbcType=VARCHAR}
+	</update>
+	<delete id="deleteRegion" parameterType="com.pxjg.module.region.entity.Region">
+
+		delete from 
+		TBL_REGION
+		where
+		re_id
+		=#{re_id,jdbcType=VARCHAR}
+	</delete>
+	<select id="queryChildRegion" resultType="com.pxjg.module.region.entity.Region"
+		parameterType="String">
+
+		select * from TBL_REGION where parent_id = #{id}
+
+	</select>
+	
+	<resultMap id="areaResult" type="com.pxjg.module.region.entity.Region">
+		<result property="re_id" column="re_id" jdbcType="VARCHAR" />
+		<result property="parent_id" column="parent_id" jdbcType="VARCHAR" />
+		<result property="region_name" column="region_name" jdbcType="VARCHAR" />
+		<result property="region_type" column="region_type" jdbcType="NUMERIC" />
+		<result property="remark1" column="remark1" jdbcType="VARCHAR" />
+		<result property="remark2" column="remark2" jdbcType="VARCHAR" />
+		<result property="remark3" column="remark3" jdbcType="VARCHAR" />
+		<collection property="lsShangquan" column="re_id" javaType="java.util.ArrayList" ofType="com.pxjg.module.region.entity.Region" select="queryChildRegionByArea"/>
+	</resultMap>
+	
+	<resultMap id="ShangquanResult" type="com.pxjg.module.region.entity.Region">
+		<result property="re_id" column="re_id" jdbcType="VARCHAR" />
+		<result property="parent_id" column="parent_id" jdbcType="VARCHAR" />
+		<result property="region_name" column="region_name" jdbcType="VARCHAR" />
+		<result property="region_type" column="region_type" jdbcType="NUMERIC" />
+		<result property="remark1" column="remark1" jdbcType="VARCHAR" />
+		<result property="remark2" column="remark2" jdbcType="VARCHAR" />
+		<result property="remark3" column="remark3" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="queryChildRegionByType" resultMap="areaResult"
+		parameterType="map">
+
+		select * from TBL_REGION where parent_id ='${id}' and region_type='${type}'
+
+	</select>
+	
+	<select id="queryChildRegionByArea" resultMap="ShangquanResult"
+		parameterType="String">
+
+		select * from TBL_REGION where parent_id =#{re_id}
+
+	</select>
+	
+	
+	<select id="queryRegionByName" resultType="com.pxjg.module.region.entity.Region"
+	parameterType="String">
+
+	select * from TBL_REGION where region_name = #{string}
+
+	</select>
+		
+		
+		
+		
+</mapper>

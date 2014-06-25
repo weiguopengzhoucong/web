@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> New Document </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Author" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<META NAME="Description" CONTENT="">
+</HEAD>
+
+<BODY>
+<TABLE border="1" align="center" width="750" id="table">
+<TR>
+    <TD>Number</TD>
+    <TD>Name</TD>
+    <TD>Sex</TD>
+    <TD>Age</TD>
+    <TD>Nationality</TD>
+</TR>
+<TR>
+    <TD>001</TD>
+    <TD>Lucy</TD>
+    <TD>Female</TD>
+    <TD>22</TD>
+    <TD>American</TD>
+</TR>
+</TABLE>
+</BODY>
+</HTML>
+<style type="text/css">
+.temp {
+        background-color:buttonshadow;
+        cursor:default;
+        position:absolute;
+        filter:progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=50);
+        opacity:0.5;
+        zIndex:3001;
+        display:none;
+}
+.dragtemp {
+        background-color:buttonshadow;
+        cursor:default;
+        position:absolute;
+        filter:progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=50);
+        opacity:0.5;
+        zIndex:3001;
+}
+</style>
+<script type="text/javascript">
+var Util = new Object;
+var _table;
+var _row;
+var _column = new Array();
+var _fromIndex = -1;
+var _toIndex = -1;
+var _canDragFromIndex = 0;
+var _tempDragTarget;
+var _fromDragTarget;
+var    _toDropTarget;
+var _isDrag = false;
+var whenCanDropToTargStyle = "_toDropTarget.style.borderLeft = 'thin solid #00FFFF'";
+var whenCannotDropToTargStyle = "_toDropTarget.style.borderLeft = '1'";
+Util.addEventHandler = function (oTarget, sEventType, fnHandler) {
+    
+    if (oTarget.addEventListener) {
+        oTarget.addEventListener(sEventType, fnHandler, false);
+    } else if (oTarget.attachEvent) {
+        oTarget.attachEvent("on" + sEventType, fnHandler);
+    } else {
+        oTarget["on" + sEventType] = fnHandler;
+    }
+};
+Util.removeEventHandler = function (oTarget, sEventType, fnHandler) {
+    if (oTarget.removeEventListener) {
+        oTarget.removeEventListener(sEventType, fnHandler, false);
+    } else if (oTarget.detachEvent) {
+        oTarget.detachEvent("on" + sEventType, fnHandler);
+    } else { 
+        oTarget["on" + sEventType] = null;
+    }
+};
+Util.getPos = function(elem) { 
+    var pos = new Object();
+    
+    pos.left = elem.offsetLeft;
+    pos.top = elem.offsetTop;
+    
+    while(elem = elem.offsetParent) { 
+        pos.left += elem.offsetLeft;
+        pos.top += elem.offsetTop;
+    }
+    pos.left += document.body.scrollLeft; 
+    pos.top += document.body.scrollTop;
+    return pos;
+};
+
+Util.formatEvent = function (oEvent) {
+
+    if (typeof oEvent.charCode == "undefined") {
+        oEvent.charCode = (oEvent.type == "keypress") ? oEvent.keyCode : 0;
+        oEvent.isChar = (oEvent.charCode > 0);
+    }
+    
+    if (oEvent.srcElement && !oEvent.target) {
+        oEvent.eventPhase = 2;
+        oEvent.pageX = oEvent.clientX + document.documentElement.scrollLeft;
+        oEvent.pageY = oEvent.clientY + document.documentElement.scrollTop;
+        if (!oEvent.preventDefault) {
+                oEvent.preventDefault = function () {
+                    this.returnValue = false;
+                };
+        }
+
+        if (oEvent.type == "mouseout") {
+            oEvent.relatedTarget = oEvent.toElement;
+        } else if (oEvent.type == "mouseover") {
+            oEvent.relatedTarget = oEvent.fromElement;
+        }
+
+        if (!oEvent.stopPropagation) {
+                oEvent.stopPropagation = function () {
+                    this.cancelBubble = true;
+                };
+        }
+        if ( typeof oEvent.button == " undefined " ) {
+            oEvent.button = oEvent.which;
+        }
+        oEvent.target = oEvent.srcElement;
+        oEvent.time = (new Date).getTime();
+    
+    }
+    
+    return oEvent;
+};
+
+Util.getEvent = function() {
+    if (window.event) {
+        return this.formatEvent(window.event);
+    } else {
+        return Util.getEvent.caller.arguments[0];
+    }
+};
+
+function insertAfter(newElement,targetElement) {
+var parent = targetElement.parentNode;
+if (parent.lastChild == targetElement) {
+    parent.appendChild(newElement);
+} else {
+    parent.insertBefore(newElement,targetElement.nextSibling);
+}
+};
+function initTempTag() {
+    _tempDragTarget = document.createElement("DIV");    
+    _tempDragTarget.className = "temp";
+    if(window.document.body) {
+        window.document.body.insertBefore(_tempDragTarget,window.document.body.firstChild);
+    }
+};
+function setTempDragTarget(elem) {
+    _tempDragTarget.innerHTML = elem.innerHTML;
+    _tempDragTarget.className = "dragtemp";
+    _tempDragTarget.style.height= elem.style.height;
+    _tempDragTarget.style.width = elem.style.width;    
+};
+function handleMouseDown(elem) {    
+    _isDrag = true;
+    setTempDragTarget(elem);
+    _fromDragTarget = elem;
+    _toDropTarget = elem;
+    _fromIndex = elem.cellIndex;
+    _toIndex = elem.cellIndex;
+    eval(whenCanDropToTargStyle);
+    Util.addEventHandler(window.document.body,"mousemove",handleMouseMove);
+    Util.addEventHandler(window.document.body,"mouseup",handleBodyMouseUp);
+};
+
+function handleBodyMouseUp() {
+    if(_isDrag){ _isDrag = false;}
+    _isDrag = false;
+    Util.removeEventHandler(window.document.body,"mousemove",handleMouseMove);
+    Util.removeEventHandler(window.document.body,"mouseup",handleBodyMouseUp);
+    _tempDragTarget.style.display = "none";
+    if(_toDropTarget) {
+        if(eval(whenCannotDropToTargStyle)) {
+            eval(whenCannotDropToTargStyle);
+        }
+        _fromIndex = -1;
+        _toIndex = -1;
+        _toDropTarget = null;
+    }
+};
+
+function handleMouseUp(elem) {
+    if(!_isDrag) {
+        return false;
+    }
+    _isDrag = false;
+    Util.removeEventHandler(window.document.body,"mousemove",handleMouseMove);
+    Util.removeEventHandler(window.document.body,"mouseup",handleBodyMouseUp);
+    _tempDragTarget.style.display = "none";
+    if(_toDropTarget) {
+        if(eval(whenCannotDropToTargStyle)) {
+            eval(whenCannotDropToTargStyle);
+        } 
+        moveTargetTo();
+        _fromIndex = -1;
+        _toIndex = -1;
+        _toDropTarget = null;
+    }
+};
+
+function handleMouseOver(elem) {    
+    if(!_isDrag) { return false; }
+    _toIndex = elem.cellIndex;
+    _toDropTarget = _rows.cells[elem.cellIndex];
+    if(_isDrag) eval(whenCanDropToTargStyle);
+};
+
+function handleMouseOut() {
+    if(!_toDropTarget) { return false; }    
+    eval(whenCannotDropToTargStyle);
+    _toIndex = -1;
+    _toDropTarget = null;
+};
+
+function handleMouseMove(oEvent) {
+    oEvent = Util.getEvent(oEvent);
+    if(oEvent.type.indexOf("mousemove") == -1 ) {
+        Util.removeEventHandler(window.document.body,"mousemove",handleMouseMove);
+        Util.removeEventHandler(window.document.body,"mouseup",handleBodyMouseUp);
+        return false;
+    }
+    var x = oEvent.pageX + 10;
+    var    y = oEvent.pageY + 10;
+    with(_tempDragTarget.style) {
+        left = x + "px";
+        top = y + "px";
+        display = "";
+    }    
+};
+function moveTargetTo() {
+    for (var i=0;i<_table.tBodies[ 0 ].rows.length;i++ ) {
+        var row = _table.tBodies[0].rows[i];
+        var fTag = row.cells[_fromIndex];
+        var tTag = row.cells[_toIndex];
+        row.insertBefore(fTag,tTag);
+    }
+};
+function initDrag(headTable) {
+    initTempTag();
+    _table= document.getElementById(headTable);
+    _rows = _table.tBodies[ 0 ].rows[ 0 ];
+    initTableHandle();
+};
+
+function initTableHandle() {
+    // alert(_table.tBodies[0].rows[0].cells.length);
+    _table.onselectstart = function() { return false;}
+    for (var i=0;i<_table.tBodies[0].rows[0].cells.length;i++) {
+        var cell = _table.tBodies[0].rows[0].cells[i];
+        cell.onmousedown = function() {            
+            handleMouseDown(this);
+        }
+    }
+    for(var i=0;i<_table.tBodies[0].rows.length;i++) {
+        var cells = _table.tBodies[0].rows[i].cells;
+        for(var j=_canDragFromIndex;j<cells.length;j++) {
+            var cell = cells[j];
+            cell.onmouseover = function () {
+                handleMouseOver(this);
+            }
+            cell.onmouseout = function () {
+                handleMouseOut();
+            }
+            cell.onmouseup = function () {
+                handleMouseUp(this);
+            }
+        }
+    }
+};
+window.onload = function (){
+    initDrag("table");
+}
+</script> 
+

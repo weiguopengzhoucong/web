@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<!-- 用户管理 -->
+	<bean id="userAction" class="com.pxjg.module.user.action.UserAction" scope="request">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	<!-- 区域管理 -->
+	<bean id="regionAction" class="com.pxjg.module.region.action.RegionAction"
+		scope="request">
+		<property name="regionDAO" ref="regionDAO" />
+	</bean>
+	
+	<!--机构类型管理 -->
+	<bean id="deptTypeAction" class="com.pxjg.module.depttype.aciton.DeptTypeAction"
+		scope="request">
+		<property name="deptTypeDAO" ref="deptTypeDAO" />
+	</bean>
+	
+	<!-- 新闻管理 -->
+	<bean id="newsAction" class="com.pxjg.module.news.action.NewsAction"
+		scope="request">
+		<property name="newsDAO" ref="newsDAO" />
+	</bean>
+	
+	<!-- 机构管理 -->
+	<bean id="deptAction" class="com.pxjg.module.department.action.DepartmentAction"
+		scope="request">
+		<property name="deptDAO" ref="deptDAO" />
+		<property name="regionDAO" ref="regionDAO" />
+		<property name="deptTypeDAO" ref="deptTypeDAO" />
+	</bean>
+	<bean id="fileUpload" class="com.pxjg.module.action.FileUploadAction"
+		scope="request">
+	</bean>
+	
+		
+	<!-- 课程管理 -->
+	<bean id="courseAction" class="com.pxjg.module.course.action.CourseAction"
+		scope="request">
+		<property name="courseDAO" ref="courseDAO" />
+	</bean>
+	
+	<!-- 优惠管理 -->
+	<bean id="yhAction" class="com.pxjg.module.yh.action.YhAction"
+		scope="request">
+		<property name="yhDAO" ref="yhDAO" />
+	</bean>
+	
+	
+	<bean id="IndexAction" class="com.pxjg.module.front.IndexAction"
+		scope="request">
+		<property name="regionDAO" ref="regionDAO" />
+		<property name="newsDAO" ref="newsDAO" />
+		<property name="deptTypeDAO" ref="deptTypeDAO" />
+		<property name="courseDAO" ref="courseDAO" />
+		<property name="deptDAO" ref="deptDAO" />
+		<property name="yhDAO" ref="yhDAO" />
+		<property name="collectionDAO" ref="collectionDAO" />
+	</bean>
+	
+	<!-- 前台用户管理 -->
+	<bean id="frontUserAction" class="com.pxjg.module.front.FrontUserAction"
+		scope="request">
+		<property name="userDAO" ref="userDAO" />
+		<property name="baseDataDAO" ref="baseDataDAO" />
+		<property name="regionDAO" ref="regionDAO" />
+		<property name="deptDAO" ref="deptDAO" />
+	</bean>
+	
+	<!-- 收藏管理 -->
+	<bean id="collectionAction" class="com.pxjg.module.userCollection.action.CollectionAction"
+		scope="request">
+		<property name="collectionDAO" ref="collectionDAO" />
+	</bean>
+	
+	<!-- 评论管理 -->
+	<bean id="remarkAction" class="com.pxjg.module.remark.action.RemarkAction"
+		scope="request">
+		<property name="remarkDAO" ref="remarkDAO" />
+	</bean>
+	
+</beans>

@@ -1,0 +1,173 @@
+@charset "utf-8";
+/* @时间：2013.07.09  @制作者：吕彬  @qq:286504720*/
+
+/*登录页*/
+.login-back{
+	background:url(../images/login-back.jpg) no-repeat center 0;
+	height:900px;
+	width:100%;
+	position:relative;
+}
+.login-back .login-box{
+	position:absolute;
+	background:url(../images/login-box.png) no-repeat;
+	_background:url(../images/login-box-ie6.png) no-repeat;
+	width:418px;
+	height:249px;
+	padding:20px;
+	top:50%;
+	left:50%;
+	margin:-80px 0 0 -220px;
+}
+.login-box h2{
+	padding-left:75px;
+	margin-top:20px;
+	margin-bottom:10px;
+}
+.login-box h1{
+	text-indent:-9999em;
+	height:0;
+}
+.login{
+	padding:10px 0;
+	height:98px;
+}
+.login-text{
+	float:left;
+	overflow:hidden;
+	width:290px;
+	padding-left:12px;
+}
+.login-text label{
+	display:block;
+	height:40px;
+	margin:7px 0;
+	clear:both;
+}
+.login-text label span{
+	display:inline-block;
+	width:61px;
+	height:40px;
+	float:left;
+}
+.login-text .I-text{
+	width:221px;
+	height:34px;
+	margin-top:2px;
+	border:0 none;
+	line-height:34px;
+	padding-left:5px;
+}
+.login-btn{
+	float:right;
+	width:100px;
+	overflow:hidden;
+	padding-right:10px;
+	cursor:hand;
+}
+.login-btn .login-in-btn{
+	background:none;
+	margin-top:4px;
+	width:98px;
+	height:88px;
+	border:0 none;
+	text-indent:-999em;
+	cursor:hand;
+}
+
+
+/*top*/
+.top{
+	width:100%;
+	height:50px;
+	overflow:hidden;
+	border:0 none;
+}
+.header{
+	background:url(../images/top-back.jpg) repeat-x;
+	height:50px;
+	width:100%;
+}
+.header_con{
+	background:url(../images/top.jpg) no-repeat;
+	height:50px;
+}
+.W960{
+	width:960px;
+	margin:0 auto;
+}
+.operate{
+	text-align:right;
+	padding:0 12px;
+	font:700 12px/50px "微软雅黑";
+}
+.operate span{
+	padding:0 10px;
+}
+
+/*sider*/
+.siderbar{
+	width:180px;
+	float:left;
+	border:0 none;
+	overflow:hidden;
+	padding:12px 30px 0;
+}
+.sider{
+	width:180px;
+	overflow:hidden;
+	padding-left : 18px;
+}
+.sider .title{
+	background:url(../images/sider-top.jpg) no-repeat;
+	height:40px;
+	font:700 14px/34px "微软雅黑";
+	text-align:center;
+}
+.sider .list{
+	background:url(../images/list.jpg) repeat-y;
+	padding:0 6px;
+	width:168px;
+	overflow:hidden;
+}
+.sider .list ul li{
+	background:url(../images/sider-li.jpg) no-repeat 6px 8px;
+	padding-left:28px;
+}
+.sider .list ul li .bottom{
+	background:url(../images/sider-li-bottom.jpg) repeat-x 0 bottom;
+	padding:2px;
+	margin-left:-28px;
+	padding-left:28px;
+	height:30px;
+	line-height:30px;
+	font:12px/30px "宋体";
+	color:#368000;
+	cursor:pointer;
+}
+.sider .list .small_list{
+	display:none;
+}
+.sider .list .small_list li .bottom{
+	margin-left:-56px;
+	padding-left:56px;
+	color:#666;
+}
+.sider .bottom{
+	background:url(../images/sider-bottom.jpg) no-repeat;
+	height:29px;
+}
+.main{
+	margin-top:0px;
+	height:635px;
+	padding-left:50px;
+	*padding-left:0;
+}
+.footer{
+	width:100%;
+	padding:10px 0;
+	color:#666;
+	clear:both;
+	padding-left:35%;
+}
+

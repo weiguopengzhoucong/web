@@ -1,0 +1,26 @@
+@charset "utf-8";
+*{margin:0;padding:0;list-style-type:none;font-style:normal;}
+a,img{border:0;}
+a,a:visited{color:#5e5e5e; text-decoration:none;}
+a:hover{color:#4183C4;text-decoration:underline;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.clearfix{display:inline-table;}/* Hides from IE-mac \*/
+*html .clearfix{height:1%;}
+.clearfix{display:block;}/* End hide from IE-mac */
+*+html .clearfix{min-height:1%;}
+.clear{height:0;overflow:hidden;clear:both;display:block;}
+body{font:12px/180% Arial, Helvetica, sans-serif, "新宋体";}	
+/* demo */
+.demo{width:950px;margin:120px auto;}
+.demo h2{color:#8FD401;font-size:16px;height:40px;text-align:center;}
+.demo p{line-height:22px;margin-bottom:20px;}
+.demo p a{color:#3366cc;margin:0 5px;font-weight:800;font-size:14px;}
+.demo .fl{float:left;}
+.demo img{border:1px solid #555555;margin:5px 15px 0 0;padding:3px;}
+/* qtip 提示框基础样式 */
+.qtip .qtip-content{padding:10px;overflow:hidden;}
+.qtip .qtip-content .qtip-title,.qtip-cream .qtip-content .qtip-title{background-color:#F0DE7D;}
+.qtip-light .qtip-content .qtip-title{background-color:#f1f1f1;}
+.qtip-dark .qtip-content .qtip-title{background-color:#404040;}
+.qtip-red .qtip-content .qtip-title{background-color:#F28279;}
+.qtip-green .qtip-content .qtip-title{background-color:#B9DB8C;}
